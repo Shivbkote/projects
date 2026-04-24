@@ -1,0 +1,880 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Designer Portfolio | 2026 Edition</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+    <style>
+        :root {
+            --bg: #050508;
+            --primary: #bc13fe;
+            --secondary: #2bdaff;
+            --tertiary: #00ff88;
+            --glass: rgba(255, 255, 255, 0.03);
+            --glass-border: rgba(255, 255, 255, 0.1);
+            --text-main: #ffffff;
+            --text-dim: #a1a1aa;
+            --nav-height: 70px;
+        }
+
+        * {
+            margin: 0; padding: 0; box-sizing: border-box;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text-main);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        .mesh-gradient {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: 
+                radial-gradient(circle at var(--x, 50%) var(--y, 50%), rgba(188, 19, 254, 0.15) 0%, transparent 45%),
+                radial-gradient(circle at 80% 20%, rgba(43, 218, 255, 0.1) 0%, transparent 40%);
+            z-index: -1;
+            filter: blur(60px);
+        }
+
+        /* --- Navbar --- */
+        nav {
+            position: fixed; top: 0; width: 100%; z-index: 1000;
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--glass-border);
+            background: rgba(5, 5, 8, 0.8);
+            height: var(--nav-height);
+            display: flex; align-items: center;
+        }
+        .nav-content {
+            display: flex; justify-content: space-between; align-items: center;
+            width: 100%; max-width: 1300px; margin: 0 auto; padding: 0 1.5rem;
+        }
+        .logo { font-weight: 800; font-size: 1.3rem; letter-spacing: -1px; text-decoration: none; color: #fff; }
+        .logo span { color: var(--secondary); }
+
+        .nav-links { display: flex; gap: 1.5rem; list-style: none; }
+        .nav-links a { 
+            text-decoration: none; color: var(--text-dim); 
+            font-size: 0.75rem; font-weight: 700; transition: 0.3s;
+            text-transform: uppercase; letter-spacing: 1px;
+        }
+        .nav-links a:hover { color: var(--secondary); }
+
+        /* --- Hero Section --- */
+        .hero {
+            min-height: 100vh;
+            display: grid;
+            grid-template-columns: 1.2fr 0.8fr;
+            align-items: center;
+            padding-top: var(--nav-height);
+            padding-bottom: 4rem;
+            gap: 2rem;
+        }
+
+        .hero-text { text-align: left; }
+        
+        .badge {
+            display: inline-block;
+            padding: 6px 16px;
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
+            border-radius: 100px;
+            font-size: 0.7rem;
+            font-weight: 700;
+            color: var(--secondary);
+            margin-bottom: 1.5rem;
+            letter-spacing: 1px;
+        }
+
+        .hero h1 {
+            font-size: clamp(2.5rem, 8vw, 5.5rem);
+            font-weight: 800;
+            line-height: 1;
+            margin-bottom: 1.5rem;
+            letter-spacing: -2px;
+        }
+
+        .hero h1 .outline {
+            color: transparent;
+            -webkit-text-stroke: 1px rgba(255,255,255,0.4);
+        }
+
+        .hero p {
+            color: var(--text-dim);
+            font-size: clamp(1rem, 2vw, 1.1rem);
+            max-width: 500px;
+            margin-bottom: 2.5rem;
+        }
+
+        .hero-visual {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+        }
+
+        .visual-card {
+            width: 280px;
+            height: 380px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 30px;
+            transform: rotate(-5deg);
+            position: relative;
+            z-index: 1;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.5);
+            overflow: hidden;
+        }
+
+        .visual-card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: url('https://images.unsplash.com/photo-1558655146-d09347e92766?q=80&w=1000&auto=format&fit=crop') center/cover;
+            opacity: 0.4;
+            filter: grayscale(1);
+        }
+
+        .floating-stat {
+            position: absolute;
+            background: rgba(255,255,255,0.05);
+            backdrop-filter: blur(15px);
+            border: 1px solid var(--glass-border);
+            padding: 1.2rem;
+            border-radius: 20px;
+            z-index: 2;
+            animation: float 4s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+        }
+
+        /* Buttons */
+        .btn-group { display: flex; flex-wrap: wrap; gap: 1rem; }
+        
+        .btn {
+            padding: 0.9rem 2rem;
+            border-radius: 12px;
+            font-weight: 700;
+            text-decoration: none;
+            transition: 0.4s;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.9rem;
+            cursor: pointer;
+        }
+
+        .btn-glow { background: #fff; color: #000; }
+        .btn-glow:hover { transform: translateY(-3px); background: var(--secondary); }
+        .btn-outline { border: 1px solid var(--glass-border); color: #fff; }
+        .btn-outline:hover { background: var(--glass); }
+
+        /* --- Sections Layout --- */
+        .container { max-width: 1300px; margin: 0 auto; padding: 0 1.5rem; }
+        .section-title { font-size: clamp(2rem, 5vw, 3.5rem); margin: 4rem 0 2rem; font-weight: 800; letter-spacing: -1px;}
+
+        /* --- Mobile Responsiveness Updates --- */
+        @media (max-width: 1024px) {
+            .hero {
+                grid-template-columns: 1fr;
+                text-align: center;
+                padding-top: 120px;
+            }
+            .hero-text {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+            }
+            .hero-visual {
+                margin-top: 3rem;
+                height: 450px;
+            }
+            .nav-links { gap: 1rem; }
+        }
+
+        @media (max-width: 600px) {
+            .nav-links { display: none; } /* Hide links on tiny screens or replace with burger later */
+            .hero h1 { letter-spacing: -1px; }
+            .btn-group { justify-content: center; width: 100%; }
+            .btn { width: 100%; justify-content: center; }
+            .visual-card { width: 220px; height: 300px; }
+            .floating-stat { padding: 0.8rem; }
+            .floating-stat h3 { font-size: 1rem; }
+        }
+
+        footer { text-align: center; padding: 4rem 0; border-top: 1px solid var(--glass-border); color: var(--text-dim); font-size: 0.8rem; }
+
+
+
+
+
+
+.filter-bar {
+        display: flex;
+        gap: 0.8rem;
+        margin-bottom: 3rem;
+        flex-wrap: wrap;
+    }
+
+    .filter-btn {
+        padding: 10px 24px;
+        background: var(--glass);
+        border: 1px solid var(--glass-border);
+        color: var(--text-dim);
+        border-radius: 50px;
+        cursor: pointer;
+        font-weight: 600;
+        font-size: 0.85rem;
+        transition: 0.3s;
+    }
+
+    .filter-btn:hover, .filter-btn.active {
+        background: var(--secondary);
+        color: #000;
+        border-color: var(--secondary);
+        transform: translateY(-2px);
+    }
+
+    .project-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        gap: 1.5rem;
+    }
+
+    .project-card {
+        transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .project-card.hidden {
+        display: none;
+    }
+
+    .card-inner {
+        background: var(--glass);
+        border: 1px solid var(--glass-border);
+        border-radius: 24px;
+        overflow: hidden;
+        height: 100%;
+        transition: 0.4s;
+    }
+
+    .card-inner:hover {
+        border-color: var(--secondary);
+        background: rgba(255,255,255,0.06);
+        transform: translateY(-10px);
+    }
+
+    .card-img {
+        position: relative;
+        height: 220px;
+        overflow: hidden;
+    }
+
+    .card-img img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: 0.5s;
+    }
+
+    .card-overlay {
+        position: absolute;
+        inset: 0;
+        background: rgba(188, 19, 254, 0.4);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        opacity: 0;
+        transition: 0.3s;
+        backdrop-filter: blur(5px);
+    }
+
+    .card-inner:hover .card-overlay { opacity: 1; }
+    .card-inner:hover img { transform: scale(1.1); }
+
+    .card-content { padding: 1.5rem; }
+    .card-content .tag {
+        font-size: 0.65rem;
+        text-transform: uppercase;
+        letter-spacing: 1.5px;
+        color: var(--secondary);
+        font-weight: 800;
+        display: block;
+        margin-bottom: 0.5rem;
+    }
+
+    .card-content h3 { font-size: 1.2rem; margin-bottom: 0.5rem; }
+    .card-content p { font-size: 0.85rem; color: var(--text-dim); }
+
+    /* Mobile adjustments for Work Section */
+    @media (max-width: 600px) {
+        .filter-bar { justify-content: center; gap: 0.5rem; }
+        .filter-btn { padding: 8px 16px; font-size: 0.75rem; }
+        .project-grid { grid-template-columns: 1fr; }
+        .section-header { text-align: center; }
+    }
+
+
+
+
+.card-overlay {
+        position: absolute;
+        inset: 0;
+        background: rgba(5, 5, 8, 0.6); /* Darker blur for better contrast */
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        opacity: 0;
+        transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        backdrop-filter: blur(8px);
+        text-decoration: none; /* Removes underline from link */
+    }
+
+    .eye-btn {
+        background: var(--secondary);
+        color: #000;
+        width: 120px;
+        height: 45px;
+        border-radius: 50px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        font-weight: 700;
+        font-size: 0.85rem;
+        transform: translateY(20px);
+        transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        box-shadow: 0 10px 20px rgba(43, 218, 255, 0.3);
+    }
+
+    .card-inner:hover .card-overlay {
+        opacity: 1;
+    }
+
+    .card-inner:hover .eye-btn {
+        transform: translateY(0);
+    }
+
+    .eye-btn i {
+        width: 18px;
+        height: 18px;
+    }
+
+/* Enable touch-friendly interaction */
+@media (hover: none) {
+    /* When the user taps the card, show the overlay */
+    .project-card:active .card-overlay,
+    .project-card:focus .card-overlay,
+    .project-card.touch-active .card-overlay {
+        opacity: 1;
+    }
+
+    .project-card:active .eye-btn,
+    .project-card:focus .eye-btn,
+    .project-card.touch-active .eye-btn {
+        transform: translateY(0);
+    }
+}
+
+/* Add a smooth transition for the "active" state */
+.project-card {
+    -webkit-tap-highlight-color: transparent; /* Removes the ugly blue box on tap */
+    cursor: pointer;
+}
+
+
+
+    </style>
+</head>
+<body>
+
+    <div class="mesh-gradient" id="mesh"></div>
+
+    <nav>
+        <div class="nav-content">
+            <a href="#" class="logo">SHIV.<span>LAB</span></a>
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+             
+                <li><a href="#projects">Work</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <section id="home" class="hero container">
+        <div class="hero-text" data-aos="fade-up">
+            <span class="badge">AVAILABLE FOR NEW PROJECTS</span>
+            <h1>Digital <br> <span class="outline">Experience</span> <br> Designer.</h1>
+            <p>I craft immersive visual languages and functional digital products that help brands stand out in the 2026 digital landscape.</p>
+            
+            <div class="btn-group">
+                <a href="#projects" class="btn btn-glow">View Projects <i data-lucide="arrow-up-right"></i></a>
+                <a href="#contact" class="btn btn-outline">Let's Connect</a>
+            </div>
+        </div>
+
+        <div class="hero-visual" data-aos="zoom-in" data-aos-delay="200">
+            <div class="visual-card"></div>
+            <div class="floating-stat" style="top: 10%; right: 5%;">
+                <h3 style="color: var(--secondary)">50+</h3>
+                <p style="font-size: 0.6rem; font-weight: 800;">PROJECTS DONE</p>
+            </div>
+            <div class="floating-stat" style="bottom: 15%; left: 5%; animation-delay: 1s;">
+                <i data-lucide="framer" style="color: var(--primary); width: 16px;"></i>
+                <p style="font-size: 0.6rem; font-weight: 800; margin-top: 5px;">PIXEL PERFECT</p>
+            </div>
+        </div>
+    </section>
+<section id="projects" class="container" style="padding-top: 80px;">
+    <div class="section-header" data-aos="fade-up">
+        <span class="badge">MY PORTFOLIO</span>
+        <h2 class="section-title" style="margin-top: 10px;">Selected Works.</h2>
+        
+        <div class="filter-bar">
+            <button class="filter-btn active" onclick="filterProjects('all')">All</button>
+            <button class="filter-btn" onclick="filterProjects('app')">App</button>
+            <button class="filter-btn" onclick="filterProjects('web')">Web</button>
+            <button class="filter-btn" onclick="filterProjects('uiux')">UI/UX</button>
+            <button class="filter-btn" onclick="filterProjects('branding')">Branding</button>
+        </div>
+    </div>
+
+    <div class="project-grid" id="project-grid">
+        <div class="project-card" data-category="web" data-aos="fade-up">
+            <div class="card-inner">
+                <div class="card-img">
+                    <img src="./pic/ankflowers.png" alt="Web Project">
+                    <a href="https://ank-flowers.vercel.app/" target="_blank" class="card-overlay" aria-label="View Project">
+                        <div class="eye-btn">
+                            <i data-lucide="eye"></i>
+                            <span>View Live</span>
+                        </div>
+                    </a>
+                </div>
+                <div class="card-content">
+                    <span class="tag">Web Development</span>
+                    <h3>Ank.flowers</h3>
+                    <!-- <p>Modern UI with advanced flower booking system.</p> -->
+                </div>
+            </div>
+        </div>
+
+        <div class="project-card" data-category="web" data-aos="fade-up">
+            <div class="card-inner">
+                <div class="card-img">
+                    <img src="./pic/dashantee.png" alt="Web Project">
+                    <a href="https://dashantee-studio.vercel.app/" target="_blank" class="card-overlay" aria-label="View Project">
+                        <div class="eye-btn">
+                            <i data-lucide="eye"></i>
+                            <span>View Live</span>
+                        </div>
+                    </a>
+                </div>
+                <div class="card-content">
+                    <span class="tag">Web Development</span>
+                    <h3>Dashantee Studio</h3>
+                    <!-- <p>Modern UI with advanced film making studio </p> -->
+                </div>
+            </div>
+        </div>
+
+
+
+             <div class="project-card" data-category="uiux" data-aos="fade-up">
+            <div class="card-inner">
+                <div class="card-img">
+                    <img src="./pic/travobuddy@imp.svg" alt="Web Project">
+                    <a href="https://www.figma.com/proto/CiC5IXs0nF4j6KRA4i2qjg/BroTravel?node-id=0-1&t=BCyKVscGbume1e1o-1" target="_blank" class="card-overlay" aria-label="View Project">
+                        <div class="eye-btn">
+                            <i data-lucide="eye"></i>
+                            <span>View Live</span>
+                        </div>
+                    </a>
+                </div>
+                <div class="card-content">
+                    <span class="tag">Ui/Ux</span>
+                    <h3>TravoBuddy</h3>
+                    <!-- <p>Modern UI with advanced travel booking studio </p> -->
+                </div>
+            </div>
+        </div>
+
+        
+             <div class="project-card" data-category="uiux" data-aos="fade-up">
+            <div class="card-inner">
+                <div class="card-img">
+                    <img src="./pic/Azapi.aiFigma.png" alt="Web Project">
+                    <a href="https://www.figma.com/design/ff7LKpTdpfCwFKT5FMTYKg/Azapi.ai?node-id=18-30&t=COwLQRHEtwYBakh8-1" target="_blank" class="card-overlay" aria-label="View Project">
+                        <div class="eye-btn">
+                            <i data-lucide="eye"></i>
+                            <span>View Live</span>
+                        </div>
+                    </a>
+                </div>
+                <div class="card-content">
+                    <span class="tag">UI/UX</span>
+                    <h3>Azapi Clone </h3>
+                    <!-- <p>Modern UI with advanced travel booking studio </p> -->
+                </div>
+            </div>
+        </div>
+
+
+                <div class="project-card" data-category="web" data-aos="fade-up">
+            <div class="card-inner">
+                <div class="card-img">
+                    <img src="./pic/Portfolio _ Shivraj Kote.png" alt="Web Project">
+                    <a href="https://shiv-portfolio-tan.vercel.app/" target="_blank" class="card-overlay" aria-label="View Project">
+                        <div class="eye-btn">
+                            <i data-lucide="eye"></i>
+                            <span>View Live</span>
+                        </div>
+                    </a>
+                </div>
+                <div class="card-content">
+                    <span class="tag">Web Development</span>
+                    <h3>Portfolio</h3>
+                    <!-- <p>Modern UI with advanced film making studio </p> -->
+                </div>
+            </div>
+        </div>
+
+                <div class="project-card" data-category="web" data-aos="fade-up">
+            <div class="card-inner">
+                <div class="card-img">
+                    <img src="./pic/OneHealth@imp.svg" alt="Web Project">
+                    <a href="https://onehealthproject.vercel.app/" target="_blank" class="card-overlay" aria-label="View Project">
+                        <div class="eye-btn">
+                            <i data-lucide="eye"></i>
+                            <span>View Live</span>
+                        </div>
+                    </a>
+                </div>
+                <div class="card-content">
+                    <span class="tag">Web Development</span>
+                    <h3>OneHealth</h3>
+                    <!-- <p>Modern UI with advanced film making studio </p> -->
+                </div>
+            </div>
+        </div>
+
+    <div class="project-card" data-category="uiux" data-aos="fade-up">
+            <div class="card-inner">
+                <div class="card-img">
+                    <img src="./pic/FoodWave .png" alt="Web Project">
+                    <a href="https://www.figma.com/proto/GpoipuOsnF7A2njm5WKh14/FoodWave?node-id=0-1&t=EaFLPqW5FhytytnQ-1" target="_blank" class="card-overlay" aria-label="View Project">
+                        <div class="eye-btn">
+                            <i data-lucide="eye"></i>
+                            <span>View Live</span>
+                        </div>
+                    </a>
+                </div>
+                <div class="card-content">
+                    <span class="tag">Web Development</span>
+                    <h3>Food Wave</h3>
+                    <!-- <p>Modern UI with advanced film making studio </p> -->
+                </div>
+            </div>
+        </div>
+            <div class="project-card" data-category="web" data-aos="fade-up">
+            <div class="card-inner">
+                <div class="card-img">
+                    <img src="./pic/Azapi Clone.png" alt="Web Project">
+                    <a href="https://azapi-design-demo.vercel.app/" target="_blank" class="card-overlay" aria-label="View Project">
+                        <div class="eye-btn">
+                            <i data-lucide="eye"></i>
+                            <span>View Live</span>
+                        </div>
+                    </a>
+                </div>
+                <div class="card-content">
+                    <span class="tag">Web Development</span>
+                    <h3>Azapi AI Clone</h3>
+                    <!-- <p>Modern UI with advanced film making studio </p> -->
+                </div>
+            </div>
+        </div>
+
+
+        <div class="project-card" data-category="uiux" data-aos="fade-up">
+            <div class="card-inner">
+                <div class="card-img">
+                    <img src="./pic/tracksub.png" alt="Web Project">
+                    <a href="https://www.figma.com/proto/1wnPmjEdO4OJDnbtKSU7Ti/tracksub?node-id=12-2748&t=SFiledAEXzSsWZR0-1" target="_blank" class="card-overlay" aria-label="View Project">
+                        <div class="eye-btn">
+                            <i data-lucide="eye"></i>
+                            <span>View Live</span>
+                        </div>
+                    </a>
+                </div>
+                <div class="card-content">
+                    <span class="tag">Web Development</span>
+                    <h3>tracksub</h3>
+                    <!-- <p>Modern UI with advanced film making studio </p> -->
+                </div>
+            </div>
+        </div>
+
+        <div class="project-card" data-category="app" data-aos="fade-up" data-aos-delay="100">
+            <div class="card-inner">
+                <div class="card-img">
+                    <img src="https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?q=80&w=800&auto=format&fit=crop" alt="App Project">
+                    <a href="https://yourlink.com" target="_blank" class="card-overlay" aria-label="View Project">
+                        <div class="eye-btn">
+                            <i data-lucide="eye"></i>
+                            <span>View App</span>
+                        </div>
+                    </a>
+                </div>
+                <div class="card-content">
+                    <span class="tag">Mobile App</span>
+                    <h3>School Magica</h3>
+                    <!-- <p>Educational management on the go.</p> -->
+                </div>
+            </div>
+        </div>
+
+                   <div class="project-card" data-category="web" data-aos="fade-up">
+            <div class="card-inner">
+                <div class="card-img">
+                    <img src="./pic/Gokarna Trails .png" alt="Web Project">
+                    <a href="https://gokarna-trails.vercel.app/" target="_blank" class="card-overlay" aria-label="View Project">
+                        <div class="eye-btn">
+                            <i data-lucide="eye"></i>
+                            <span>View Live</span>
+                        </div>
+                    </a>
+                </div>
+                <div class="card-content">
+                    <span class="tag">Web Development</span>
+                    <h3>Gokarna Trails</h3>
+                    <!-- <p>Modern UI with advanced film making studio </p> -->
+                </div>
+            </div>
+        </div>
+
+
+
+           <div class="project-card" data-category="branding" data-aos="fade-up">
+            <div class="card-inner">
+                <div class="card-img">
+                    <img src="./pic/branding/_Hot Coffee Promotion .png" alt="Web Project">
+                    <a href="https://pin.it/6wJWQpXfS" target="_blank" class="card-overlay" aria-label="View Project">
+                        <div class="eye-btn">
+                            <i data-lucide="eye"></i>
+                            <span>View Live</span>
+                        </div>
+                    </a>
+                </div>
+                <div class="card-content">
+                    <span class="tag">Branding</span>
+                    <h3>Hot Coffee Promotion</h3>
+                    <p> </p>
+                </div>
+            </div>
+        </div>
+
+         <div class="project-card" data-category="branding" data-aos="fade-up">
+            <div class="card-inner">
+                <div class="card-img">
+                    <img src="./pic/branding/_New Product .png" alt="Web Project">
+                    <a href="https://pin.it/6YfaYnzw3" target="_blank" class="card-overlay" aria-label="View Project">
+                        <div class="eye-btn">
+                            <i data-lucide="eye"></i>
+                            <span>View Live</span>
+                        </div>
+                    </a>
+                </div>
+                <div class="card-content">
+                    <span class="tag">Branding</span>
+                    <h3>New Product Launch</h3>
+                    <p> </p>
+                </div>
+            </div>
+        </div>
+
+         <div class="project-card" data-category="branding" data-aos="fade-up">
+            <div class="card-inner">
+                <div class="card-img">
+                    <img src="./pic/branding/_Shoes Promotion .png" alt="Web Project">
+                    <a href="https://pin.it/3kF7YojQq" target="_blank" class="card-overlay" aria-label="View Project">
+                        <div class="eye-btn">
+                            <i data-lucide="eye"></i>
+                            <span>View Live</span>
+                        </div>
+                    </a>
+                </div>
+                <div class="card-content">
+                    <span class="tag">Branding</span>
+                    <h3>Shoes Promotion</h3>
+                    <p> </p>
+                </div>
+            </div>
+        </div>
+
+         <div class="project-card" data-category="branding" data-aos="fade-up">
+            <div class="card-inner">
+                <div class="card-img">
+                    <img src="./pic/branding/Art Classes Flyer.png" alt="Web Project">
+                    <a href="https://pin.it/7pdDyhoUo" target="_blank" class="card-overlay" aria-label="View Project">
+                        <div class="eye-btn">
+                            <i data-lucide="eye"></i>
+                            <span>View Live</span>
+                        </div>
+                    </a>
+                </div>
+                <div class="card-content">
+                    <span class="tag">Branding</span>
+                    <h3>Art Classes Flyer</h3>
+                    <p> </p>
+                </div>
+            </div>
+        </div>
+
+          <div class="project-card" data-category="branding" data-aos="fade-up">
+            <div class="card-inner">
+                <div class="card-img">
+                    <img src="./pic/branding/fashion Promotion .png" alt="Web Project">
+                    <a href="https://pin.it/1RiKAJlXZ" target="_blank" class="card-overlay" aria-label="View Project">
+                        <div class="eye-btn">
+                            <i data-lucide="eye"></i>
+                            <span>View Live</span>
+                        </div>
+                    </a>
+                </div>
+                <div class="card-content">
+                    <span class="tag">Branding</span>
+                    <h3>Fashion Promotion</h3>
+                    <p> </p>
+                </div>
+            </div>
+        </div>
+
+       
+
+          <div class="project-card" data-category="branding" data-aos="fade-up">
+            <div class="card-inner">
+                <div class="card-img">
+                    <img src="./pic/branding/Food Promotion Burger .png" alt="Web Project">
+                    <a href="https://pin.it/5NNK0NWMF" target="_blank" class="card-overlay" aria-label="View Project">
+                        <div class="eye-btn">
+                            <i data-lucide="eye"></i>
+                            <span>View Live</span>
+                        </div>
+                    </a>
+                </div>
+                <div class="card-content">
+                    <span class="tag">Branding</span>
+                    <h3>Food Promotion Burger</h3>
+                    <p> </p>
+                </div>
+            </div>
+        </div>
+
+          <div class="project-card" data-category="branding" data-aos="fade-up">
+            <div class="card-inner">
+                <div class="card-img">
+                    <img src="./pic/branding/Red Pink Strawberry Beverage Instagram Post.png" alt="Web Project">
+                    <a href="https://pin.it/5h6Qu1zfi" target="_blank" class="card-overlay" aria-label="View Project">
+                        <div class="eye-btn">
+                            <i data-lucide="eye"></i>
+                            <span>View Live</span>
+                        </div>
+                    </a>
+                </div>
+                <div class="card-content">
+                    <span class="tag">Branding</span>
+                    <h3>Red Pink Strawberry Beverage </h3>
+                    <p> </p>
+                </div>
+            </div>
+        </div>
+
+
+
+        </div>
+</section>
+
+
+
+
+<script>
+    // Filtering Logic
+    function filterProjects(category) {
+        const cards = document.querySelectorAll('.project-card');
+        const buttons = document.querySelectorAll('.filter-btn');
+
+        // Update active button
+        buttons.forEach(btn => {
+            btn.classList.remove('active');
+            if (btn.innerText.toLowerCase() === category || (category === 'all' && btn.innerText.toLowerCase() === 'all')) {
+                btn.classList.add('active');
+            }
+        });
+
+        // Filter cards
+        cards.forEach(card => {
+            if (category === 'all' || card.getAttribute('data-category') === category) {
+                card.classList.remove('hidden');
+                // Re-trigger AOS animation
+                card.style.opacity = "0";
+                setTimeout(() => {
+                    card.style.opacity = "1";
+                }, 50);
+            } else {
+                card.classList.add('hidden');
+            }
+        });
+    }
+
+    // Previous Scripts...
+    AOS.init({ duration: 1000, once: true });
+    lucide.createIcons();
+
+    const mesh1 = document.getElementById('mesh');
+    document.addEventListener('mousemove', (e) => {
+        const x = (e.clientX / window.innerWidth) * 100;
+        const y = (e.clientY / window.innerHeight) * 100;
+        mesh1.style.setProperty('--x', `${x}%`);
+        mesh1.style.setProperty('--y', `${y}%`);
+    });
+</script>
+
+
+    <footer>
+        <p>&copy; 2026 Made with love by Shivraj Kote</p>
+    </footer>
+
+    <script>
+        // Initialize animations
+        AOS.init({ 
+            duration: 1000, 
+            once: true,
+            disable: 'mobile' // Optional: performance boost on old phones
+        });
+        lucide.createIcons();
+
+        // Background movement
+        const mesh = document.getElementById('mesh');
+        document.addEventListener('mousemove', (e) => {
+            const x = (e.clientX / window.innerWidth) * 100;
+            const y = (e.clientY / window.innerHeight) * 100;
+            mesh.style.setProperty('--x', `${x}%`);
+            mesh.style.setProperty('--y', `${y}%`);
+        });
+    </script>
+</body>
+</html>
